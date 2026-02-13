@@ -1,26 +1,38 @@
-// refference kung ano ang mgagagamitin mona element mula sa html
-const input = document.querySelector('#inputTodo');
-const button = document.querySelector('#buttonTodoAdd');
-const list = document.querySelector('#listTodo');
+const todoInput = document.querySelector('#inputTodo');
+const addTodoButton = document.querySelector('#buttonTodoAdd');
+const todoList = document.querySelector('#listTodo');
 
-// create an button to called function and execute what is inside it
-button.addEventListener('click', myFunction);
+// click button
+addTodoButton.addEventListener('click', addTodo);
 
-function myFunction() {
-  // gagawa siya ng list na element
-  const createNewList = document.createElement('li');
+function addTodo() {
+  // get input
+  const task = todoInput.value;
+  // .split(/\s+/) // handles multiple space
+  // .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+  // .join(' '); // ← IMPORTANT: space here
 
-  //  kunin ang value na iniinput ng user
-  const getUserAdd = input.value;
+  if (!task) {
+    alert('You must write type first');
+  } else {
+    // create list item
+    const todoItem = document.createElement('li');
 
-  // e tranfer and value na ininput ni user from textnode and get the value from user
-  const userInput = document.createTextNode(getUserAdd);
+    // insert text
+    todoItem.textContent = task;
 
-  // saan niya ilalagay tapos gagawa siya ng append sa list
-  document.querySelector('#listTodo').appendChild(createNewList);
+    // delete list item
+    const deleteBtn = (document.createElement('button').innerText = 'Delete');
+    deleteBtn.className = 'deleteBtn';
+    deleteBtn.onclick = function () {
+      todoItem.remove();
+    };
 
-  // isasama na niya yung li tapos append siya ng ininput at ng user at trinasfer sa textnode
-  createNewList.appendChild(userInput);
+    // show on UI
+    todoItem.appendChild(deleteBtn);
+    todoList.appendChild(todoItem);
+    todoInput.value = '';
+  }
 }
 
-// create palang to
+// apply typescript for safety type soo once the project is done
