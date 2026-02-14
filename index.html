@@ -1,4 +1,185 @@
 <!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Tasks - To-Do List</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2b6cee',
+              'background-light': '#f6f6f8',
+              'background-dark': '#101622',
+            },
+            fontFamily: {
+              display: ['Inter', 'sans-serif'],
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark min-h-screen text-[#111318]"
+  >
+    <div
+      class="max-w-xl mx-auto min-h-screen flex flex-col bg-white dark:bg-[#1a212e] shadow-xl"
+    >
+      <!-- Header -->
+      <header
+        class="flex items-center bg-white dark:bg-[#1a212e] p-6 border-b border-[#f0f2f4] dark:border-gray-800 sticky top-0 z-10"
+      >
+        <div class="text-primary mr-3">
+          <span class="material-symbols-outlined text-3xl">check_circle</span>
+        </div>
+        <h1 class="text-2xl font-bold leading-tight tracking-tight flex-1">
+          My Tasks
+        </h1>
+        <button
+          class="p-2 text-[#616f89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+        >
+          <span class="material-symbols-outlined">more_vert</span>
+        </button>
+      </header>
+      <!-- Input Section (Create) -->
+      <section class="px-6 py-6 bg-white dark:bg-[#1a212e]">
+        <div class="flex flex-col gap-4">
+          <label class="flex flex-col w-full">
+            <span
+              class="text-sm font-semibold text-[#111318] dark:text-gray-200 mb-2"
+              >New Task</span
+            >
+            <div class="flex gap-2">
+              <div class="relative flex-1">
+                <input
+                  id="inputTodo"
+                  class="form-input w-full rounded-lg border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 h-12 px-4 text-base placeholder:text-[#616f89]"
+                  placeholder="What needs to be done?"
+                  type="text"
+                />
+              </div>
+              <button
+                id="buttonTodoAdd"
+                class="bg-primary hover:bg-primary/90 text-white font-bold py-2 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <span class="material-symbols-outlined text-sm">add</span>
+                <span>Create</span>
+              </button>
+            </div>
+          </label>
+        </div>
+      </section>
+      <!-- Task List (Read, Update, Delete) -->
+      <main class="flex-1 px-6 pb-24">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-[#616f89]">
+            Ongoing Tasks
+          </h3>
+          <span
+            class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded-full"
+            >3 Tasks</span
+          >
+        </div>
+        <!-- list items -->
+        <div>
+          <div id="listTodo"></div>
+        </div>
+
+        <!-- Empty State Illustration Placeholder (if no tasks) -->
+        <!-- 
+            <div class="mt-12 flex flex-col items-center text-center px-10">
+                <div class="w-48 h-48 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-6xl text-gray-300">task</span>
+                </div>
+                <h4 class="text-lg font-bold">All caught up!</h4>
+                <p class="text-[#616f89] text-sm mt-2">Enjoy your free time or add a new task to get started.</p>
+            </div>
+            -->
+      </main>
+      <!-- Bottom Navigation Bar -->
+      <nav
+        class="sticky bottom-0 w-full flex gap-2 border-t border-[#f0f2f4] dark:border-gray-800 bg-white dark:bg-[#1a212e] px-4 pb-4 pt-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]"
+      >
+        <a
+          class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg text-primary"
+          href="#"
+        >
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined fill-1"
+              >format_list_bulleted</span
+            >
+          </div>
+          <p class="text-xs font-bold leading-normal tracking-wide">Tasks</p>
+        </a>
+        <a
+          class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg text-[#616f89] hover:text-primary transition-colors"
+          href="#"
+        >
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined">calendar_today</span>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-wide">
+            Calendar
+          </p>
+        </a>
+        <a
+          class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg text-[#616f89] hover:text-primary transition-colors"
+          href="#"
+        >
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-wide">
+            Settings
+          </p>
+        </a>
+      </nav>
+    </div>
+    <script src="function.js"></script>
+  </body>
+</html>
+
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,7 +192,6 @@
       <div>
         <div id="containerList">
           <ul id="listTodo">
-            <!-- list items -->
           </ul>
         </div>
         <input id="inputTodo" type="text" placeholder="Add your task here..." />
@@ -20,4 +200,4 @@
     </div>
     <script src="function.js"></script>
   </body>
-</html>
+</html> -->
