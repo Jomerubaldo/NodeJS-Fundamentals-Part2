@@ -10,6 +10,8 @@
 
 ## 5. gumawa ako ng check mark kapag done nayung task ganto ko siya ginawa gumawa mona ako ng createElement na para sa img tapos ininsert ko siya sa nagchecheck kung tapos nayon task tapos nag appendChild lang ako tapos tinawag koyong checkImg kona ginawa.
 
+## 6. gumawa ng concept na mabibiling niya kung ilang nayon task an nasa loob ng todlist ganto ko siya ginawa call ko muna refference niya na span tapos gumamit ako ng todos.length para malaman ko kung ilan nayung length ng nasa object of aaray ko kasi naka object ako
+
 # ECOUNTER ERROR OR BUG NEED TO FIX TOMORROW:
 
 ## solve na 1. kapag nag add ako ng list hindi agad siya napupunta sa local storage pero kapag naka add nako tapos nag edit is don palang siya nanasasave sa local storage
@@ -18,4 +20,4 @@
 
 ## 3. need gawan ng modal yung edit para mas maganda tignan kapag nag eedit ng newTask
 
-## 4. need din dapat malaman kung ilan na yung task an nalagay ko real time makikita siya
+## solve na 4. need din dapat malaman kung ilan na yung task an nalagay ko real time makikita siya

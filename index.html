@@ -168,7 +168,7 @@
 
       .task-list-title {
         font-size: 0.75rem;
-        font-weight: 700;
+        font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: #616f89;
@@ -316,12 +316,32 @@
         color: #ef4444;
         background-color: #fef2f2;
       }
+
+      #countTask {
+        color: #2b6cee;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 0.125rem;
+        border-radius: 9999px;
+      }
+
+      #tasks-count {
+        background-color: rgba(43, 108, 238, 0.1);
+        color: #2b6cee;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 0.125rem 0.5rem;
+        border-radius: 9999px;
+      }
     </style>
   </head>
   <body>
     <div class="app-wrapper">
       <!-- Header -->
       <header>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <h1>TodoList</h1>
       </header>
 
@@ -330,18 +350,18 @@
         <div class="input-group">
           <label class="input-label">
             <span class="input-label-text">New Task</span>
-            <div class="input-row">
+            <form class="input-row" id="todoForm">
               <div class="input-wrapper">
                 <input
                   id="inputTodo"
-                  placeholder="Input task here..."
+                  placeholder="Add a new task..."
                   type="text"
                 />
               </div>
               <button id="buttonTodoAdd">
                 <span>+ Create</span>
               </button>
-            </div>
+            </form>
           </label>
         </div>
       </section>
@@ -349,9 +369,8 @@
       <!-- Task List (Read, Update, Delete) -->
       <main>
         <div class="task-list-header">
-          <h3 class="task-list-title">
-            <p>Ongoing Tasks</p>
-          </h3>
+          <h3 class="task-list-title">Ongoing Tasks</h3>
+          <p id="tasks-count"><span id="countTask">0</span>Tasks</p>
         </div>
         <!-- list items -->
         <div id="listTodo"></div>
@@ -361,6 +380,8 @@
       const todoInput = document.querySelector('#inputTodo');
       const addTodoButton = document.querySelector('#buttonTodoAdd');
       const todoList = document.querySelector('#listTodo');
+      const form = document.querySelector('#todoForm');
+      const countTask = document.querySelector('#countTask');
       // click button
       addTodoButton.addEventListener('click', addTodo);
       // store data in array
@@ -368,7 +389,12 @@
       function addTodo() {
         const task = todoInput.value.trim();
         if (!task) {
-          alert('You must write type first');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'A task is required! Please enter what you want to do',
+            confirmButtonColor: 'rgba(43, 108, 238, 0.9)', // DOUBLE QUOTES
+          });
           return;
         }
         // get value user and push it into todos JSON.parse
@@ -378,9 +404,14 @@
         });
 
         todoInput.value = '';
+        todoInput.focus();
         saveTodos();
         renderTodos(); // need tawagin para mailabas yung data sa localStorage
       }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+      });
 
       // save to local sotrage
       function saveTodos() {
@@ -399,6 +430,10 @@
 
       function renderTodos() {
         todoList.innerHTML = '';
+
+        // count the task
+        countTask.textContent = todos.length; // get the size of object array
+
         // loop and do for each loop
         todos.forEach((todo, index) => {
           const todoItem = document.createElement('div');
